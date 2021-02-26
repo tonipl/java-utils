@@ -32,7 +32,7 @@ public class JsonUtilsTest {
 	assertThat(map, is(expected));
 	assertThat(map.size(), is(2));
 	assertThat(map, IsMapContaining.hasEntry(LANGUAGE, "Java"));
-	assertThat(map, not(IsMapContaining.hasEntry(LANGUAGE, "ruby")));
+	assertThat(map, not(IsMapContaining.hasEntry(LANGUAGE, "PHP")));
 	assertThat(map, IsMapContaining.hasKey(VERSION));
 	assertThat(map, IsMapContaining.hasValue("8"));
     }
