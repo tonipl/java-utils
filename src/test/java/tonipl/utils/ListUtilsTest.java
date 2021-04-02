@@ -1,6 +1,7 @@
 package tonipl.utils;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.time.Instant;
@@ -142,5 +143,31 @@ public class ListUtilsTest {
     @Test(expected = IllegalArgumentException.class)
     public void testRemoveIfRepeatedIdsWithNullList() {
         ListUtils.removeIfRepeatedIds(null);
+    }
+
+    @Test
+    public void testFindById() {
+        Long idToFind = 1L;
+        Common expected = ListUtils.findById(idToFind, commons);
+
+        assertThat(common1, is(expected));
+    }
+
+    @Test
+    public void testFindByIdReturnsNull() {
+        Long idToFind = 4L;
+        Common expected = ListUtils.findById(idToFind, commons);
+
+        assertThat(expected, is(nullValue()));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindByIdWithNullId() {
+        ListUtils.findById(null, commons);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindByIdWithNullList() {
+        ListUtils.findById(1L, null);
     }
 }
