@@ -1,5 +1,6 @@
 package tonipl.utils;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.util.Assert;
@@ -28,5 +29,12 @@ public class ListUtils {
         Assert.notEmpty(listToSort, EXCEPTION_LIST_EMPTY);
 
         listToSort.sort((common1, common2) -> common1.getCreationDate().compareTo(common2.getCreationDate()));
+    }
+
+    public static void removeIfRepeatedIds(List<Common> list) {
+        Assert.notEmpty(list, EXCEPTION_LIST_EMPTY);
+
+        HashSet<Object> seen = new HashSet<>();
+        list.removeIf(common -> !seen.add(common.getId()));
     }
 }

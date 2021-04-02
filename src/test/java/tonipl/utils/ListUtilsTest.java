@@ -123,4 +123,24 @@ public class ListUtilsTest {
     public void testSortByCreationDateWithNullList() {
         ListUtils.sortByCreationDate(null);
     }
+
+    @Test
+    public void testRemoveIfRepeatedIds() {
+        Long id = 1L;
+        common2.setId(id);
+        common3.setId(id);
+
+        List<Common> expected = new ArrayList<>();
+        expected.add(common3);
+
+        ListUtils.removeIfRepeatedIds(commons);
+
+        assertThat(commons.size(), is(1));
+        assertThat(commons, is(expected));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRemoveIfRepeatedIdsWithNullList() {
+        ListUtils.removeIfRepeatedIds(null);
+    }
 }
