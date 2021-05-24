@@ -120,7 +120,7 @@ public class Preconditions {
 	 * @param string       the string
 	 * @param errorMessage the error message
 	 */
-	public static void checkIsNotEmptyString(final String string, final String errorMessage) {
+	public static void checkStringIsNotEmpty(final String string, final String errorMessage) {
 		if (It.hasNotText(string)) {
 			throw new CustomException(errorMessage);
 		}
@@ -133,7 +133,7 @@ public class Preconditions {
 	 * @param errorMessage the error message
 	 * @param params       the params
 	 */
-	public static void checkIsNotEmptyString(final String string, final String errorMessage, final String... params) {
+	public static void checkStringIsNotEmpty(final String string, final String errorMessage, final String... params) {
 		if (It.hasNotText(string)) {
 			throw new CustomException(errorMessage, params);
 		}
@@ -145,7 +145,7 @@ public class Preconditions {
 	 * @param collection   the collection
 	 * @param errorMessage the error message
 	 */
-	public static void checkIsNotEmptyCollection(final Collection<?> collection, final String errorMessage) {
+	public static void checkCollectionIsNotEmpty(final Collection<?> collection, final String errorMessage) {
 		if (It.isEmpty(collection)) {
 			throw new CustomException(errorMessage);
 		}
@@ -158,7 +158,7 @@ public class Preconditions {
 	 * @param errorMessage the error message
 	 * @param params       the params
 	 */
-	public static void checkIsNotEmptyCollection(final Collection<?> collection, final String errorMessage,
+	public static void checkCollectionIsNotEmpty(final Collection<?> collection, final String errorMessage,
 			final String... params) {
 		if (It.isEmpty(collection)) {
 			throw new CustomException(errorMessage, params);
@@ -171,7 +171,7 @@ public class Preconditions {
 	 * @param map          the map
 	 * @param errorMessage the error message
 	 */
-	public static void checkIsNotEmptyMap(final Map<?, ?> map, final String errorMessage) {
+	public static void checkMapIsNotEmpty(final Map<?, ?> map, final String errorMessage) {
 		if (It.isEmpty(map)) {
 			throw new CustomException(errorMessage);
 		}
@@ -184,7 +184,7 @@ public class Preconditions {
 	 * @param errorMessage the error message
 	 * @param params       the params
 	 */
-	public static void checkIsNotEmptyMap(final Map<?, ?> map, final String errorMessage, final String... params) {
+	public static void checkMapIsNotEmpty(final Map<?, ?> map, final String errorMessage, final String... params) {
 		if (It.isEmpty(map)) {
 			throw new CustomException(errorMessage, params);
 		}
