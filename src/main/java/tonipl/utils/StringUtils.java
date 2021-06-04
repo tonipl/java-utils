@@ -23,4 +23,53 @@ public class StringUtils {
 		}
 		return result;
 	}
+
+	/**
+	 * Checks if a string has numbers.
+	 * 
+	 * @param string the string
+	 * @return true if there is some number in the string. Otherwise, false. Also a
+	 *         false is returned if the string has not text
+	 */
+	public static boolean hasNumbers(final String string) {
+		if (It.hasText(string)) {
+			return org.apache.commons.lang3.StringUtils.containsAny(string, "0123456789");
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if the string has accents.
+	 * 
+	 * @param string the string
+	 * @return true if there is some accent in the string. Otherwise, false. Also a
+	 *         false is returned if the string has not text
+	 */
+	public static boolean hasAccents(final String string) {
+		if (It.hasText(string)) {
+			return org.apache.commons.lang3.StringUtils.containsAny(string, "áàéèíìóòúùÁÀÉÈÍÌÓÒÚÙäëïöÄËÏÖÜâêîôûÂÊÎÔÛ");
+		}
+		return false;
+	}
+
+	/**
+	 * Checks if the string has some special character.
+	 * 
+	 * @param string the string
+	 * @return true if there is some special character in the string. Otherwise,
+	 *         false. Also a false is returned if the string has not text
+	 */
+	public static boolean hasSpecialCharacters(final String string) {
+		if (It.hasText(string)) {
+			CharSequence charSequence = string;
+			final int size = charSequence.length();
+
+			for (int i = 0; i < size; i++) {
+				if (!Character.isLetterOrDigit(charSequence.charAt(i))) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
