@@ -15,26 +15,26 @@ public class JsonUtils {
 
     @SuppressWarnings("unchecked")
     public static Map<String, Object> transformJSONToMap(String json) throws IOException {
-	ObjectMapper mapper = new ObjectMapper();
-	try {
-	    return mapper.readValue(json, Map.class);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	    throw e;
-	}
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(json, Map.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
     }
 
     public static String transformMapToJson(Map<String, Object> map) throws JsonProcessingException {
-	if (MapUtils.isEmpty(map)) {
-	    return null;
-	}
+		if (MapUtils.isEmpty(map)) {
+			return null;
+		}
 
-	ObjectMapper mapper = new ObjectMapper();
-	try {
-	    return mapper.writeValueAsString(map);
-	} catch (JsonProcessingException e) {
-	    e.printStackTrace();
-	    throw e;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.writeValueAsString(map);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
-    }
 }
