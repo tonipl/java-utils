@@ -21,48 +21,48 @@ public class JsonUtilsTest {
 
     @Test
     public void testTransformJSONToMap() throws IOException {
-	String json = "{\"language\":\"Java\",\"version\":\"8\"}";
+		String json = "{\"language\":\"Java\",\"version\":\"8\"}";
 
-	Map<String, Object> map = JsonUtils.transformJSONToMap(json);
+		Map<String, Object> map = JsonUtils.transformJSONToMap(json);
 
-	Map<String, String> expected = new HashMap<>();
-	expected.put(LANGUAGE, "Java");
-	expected.put(VERSION, "8");
+		Map<String, String> expected = new HashMap<>();
+		expected.put(LANGUAGE, "Java");
+		expected.put(VERSION, "8");
 
-	assertThat(map, is(expected));
-	assertThat(map.size(), is(2));
-	assertThat(map, IsMapContaining.hasEntry(LANGUAGE, "Java"));
-	assertThat(map, not(IsMapContaining.hasEntry(LANGUAGE, "PHP")));
-	assertThat(map, IsMapContaining.hasKey(VERSION));
-	assertThat(map, IsMapContaining.hasValue("8"));
+		assertThat(map, is(expected));
+		assertThat(map.size(), is(2));
+		assertThat(map, IsMapContaining.hasEntry(LANGUAGE, "Java"));
+		assertThat(map, not(IsMapContaining.hasEntry(LANGUAGE, "PHP")));
+		assertThat(map, IsMapContaining.hasKey(VERSION));
+		assertThat(map, IsMapContaining.hasValue("8"));
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testTransformJSONToMapWithIllegalArgumentException() throws IOException {
-	JsonUtils.transformJSONToMap(null);
+	public void testTransformJSONToMapWithIllegalArgumentException() throws IOException {
+		JsonUtils.transformJSONToMap(null);
     }
 
     @Test(expected = JsonParseException.class)
     public void testTransformJSONToMapWithWrongJson() throws IOException {
-	String wrongJson = "{\"language\":\"Java\"\"version\":\"8\"}";
-	JsonUtils.transformJSONToMap(wrongJson);
+		String wrongJson = "{\"language\":\"Java\"\"version\":\"8\"}";
+		JsonUtils.transformJSONToMap(wrongJson);
     }
 
     @Test
     public void testTransformMapToJson() throws JsonProcessingException {
-	String expected = "{\"language\":\"Java\",\"version\":\"8\"}";
+		String expected = "{\"language\":\"Java\",\"version\":\"8\"}";
 
-	Map<String, Object> map = new HashMap<>();
-	map.put(LANGUAGE, "Java");
-	map.put(VERSION, "8");
+		Map<String, Object> map = new HashMap<>();
+		map.put(LANGUAGE, "Java");
+		map.put(VERSION, "8");
 
-	String json = JsonUtils.transformMapToJson(map);
-	assertThat(json, is(expected));
+		String json = JsonUtils.transformMapToJson(map);
+		assertThat(json, is(expected));
     }
 
     @Test
     public void testTransformNullMapToJson() throws JsonProcessingException {
-	String json = JsonUtils.transformMapToJson(null);
-	assertThat(json, is(nullValue()));
+		String json = JsonUtils.transformMapToJson(null);
+		assertThat(json, is(nullValue()));
     }
 }
