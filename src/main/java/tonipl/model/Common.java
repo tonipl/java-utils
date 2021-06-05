@@ -3,8 +3,11 @@ package tonipl.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import tonipl.utils.Constants;
 
 public class Common implements Serializable {
     private static final long serialVersionUID = -8532427860320200108L;
@@ -18,8 +21,10 @@ public class Common implements Serializable {
     private String modificationAuthor;
 
     @NotNull(message = "Creation date may not be null")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN)
     private Date creationDate;
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN)
     private Date modificationDate;
 
     public Long getId() {
