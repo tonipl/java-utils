@@ -15,17 +15,19 @@ import org.junit.Test;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import tonipl.model.Common;
+
 public class JsonUtilsTest {
     private static final String LANGUAGE = "language";
     private static final String VERSION = "version";
 
     @Test
     public void testTransformJSONToMap() throws IOException {
-		String json = "{\"language\":\"Java\",\"version\":\"8\"}";
+		final String json = "{\"language\":\"Java\",\"version\":\"8\"}";
 
-		Map<String, Object> map = JsonUtils.transformJSONToMap(json);
+		final Map<String, Object> map = JsonUtils.transformJSONToMap(json);
 
-		Map<String, String> expected = new HashMap<>();
+		final Map<String, String> expected = new HashMap<>();
 		expected.put(LANGUAGE, "Java");
 		expected.put(VERSION, "8");
 
@@ -44,7 +46,7 @@ public class JsonUtilsTest {
 
     @Test(expected = JsonParseException.class)
     public void testTransformJSONToMapWithWrongJson() throws IOException {
-		String wrongJson = "{\"language\":\"Java\"\"version\":\"8\"}";
+		final String wrongJson = "{\"language\":\"Java\"\"version\":\"8\"}";
 		JsonUtils.transformJSONToMap(wrongJson);
     }
 
@@ -56,13 +58,29 @@ public class JsonUtilsTest {
 		map.put(LANGUAGE, "Java");
 		map.put(VERSION, "8");
 
-		String json = JsonUtils.transformMapToJson(map);
-		assertThat(json, is(expected));
+		final String result = JsonUtils.transformMapToJson(map);
+		assertThat(result, is(expected));
     }
 
     @Test
     public void testTransformNullMapToJson() throws JsonProcessingException {
-		String json = JsonUtils.transformMapToJson(null);
-		assertThat(json, is(nullValue()));
+		String result = JsonUtils.transformMapToJson(null);
+		assertThat(result, is(nullValue()));
     }
+
+	@Test
+	public void testTransformObjectToJson() {
+		final Long id = Long.valueOf(1);
+		final String author = "Foo";
+
+		final Common common = new Common();
+		common.setId(id);
+		common.setModificationAuthor(author);
+
+		final String expected = "{\n  \"id\" : " + id + ",\n  \"creationAuthor\" : null,\n  \"modificationAuthor\" : \""
+				+ author + "\",\n  \"creationDate\" : null,\n  \"modificationDate\" : null\n}";
+		final String result = JsonUtils.transformObjectToJson(common);
+
+		assertThat(result, is(expected));
+	}
 }
