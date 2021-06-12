@@ -9,8 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-import tonipl.exceptions.CustomException;
-
 public class JsonUtils {
 
     private JsonUtils() {
@@ -28,11 +26,33 @@ public class JsonUtils {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(json, Map.class);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 			throw e;
 		}
     }
+
+	/**
+	 * Transforms a JSON to an object.
+	 * 
+	 * @param <T>
+	 * @param json        the JSON
+	 * @param objectClass the object
+	 * @return the object from a JSON
+	 */
+	public static <T> T transformJSONToObject(final String json, final Class<T> objectClass) throws IOException {
+		T result = null;
+
+		try {
+			final ObjectMapper mapper = new ObjectMapper();
+			result = mapper.readValue(json.getBytes(), objectClass);
+		} catch (final IOException e) {
+			e.printStackTrace();
+			throw e;
+		}
+
+		return result;
+	}
 
 	/**
 	 * Transforms a map in a JSON.
@@ -49,7 +69,7 @@ public class JsonUtils {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.writeValueAsString(map);
-		} catch (JsonProcessingException e) {
+		} catch (final JsonProcessingException e) {
 			e.printStackTrace();
 			throw e;
 		}
@@ -60,16 +80,18 @@ public class JsonUtils {
 	 *
 	 * @param object the object
 	 * @return a JSON
+	 * @throws JsonProcessingException
 	 */
-	public static String transformObjectToJson(final Object object) {
+	public static String transformObjectToJson(final Object object) throws JsonProcessingException {
 		final StringBuilder result = new StringBuilder();
 
 		try {
 			final ObjectMapper objectMapper = new ObjectMapper();
 			final ObjectWriter writer = objectMapper.writer().withDefaultPrettyPrinter();
 			result.append(writer.writeValueAsString(object));
-		} catch (final IOException exception) {
-			throw new CustomException(exception);
+		} catch (final JsonProcessingException e) {
+			e.printStackTrace();
+			throw e;
 		}
 
 		return result.toString();
