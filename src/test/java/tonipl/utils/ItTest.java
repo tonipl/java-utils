@@ -167,6 +167,64 @@ public class ItTest {
 	}
 
 	@Test
+	public void testIsEmptyWithNullArray() {
+		final Object[] array = null;
+		final boolean expected = true;
+		final boolean result = It.isEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsEmptyWithEmptyArray() {
+		final Object[] array = new Object[0];
+		final boolean expected = true;
+		final boolean result = It.isEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsEmptyWithNotEmptyArray() {
+		final Object[] array = new Object[1];
+		array[0] = 1L;
+
+		final boolean expected = false;
+		final boolean result = It.isEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsNotEmptyWithNullArray() {
+		final Object[] array = null;
+		final boolean expected = false;
+		final boolean result = It.isNotEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsNotEmptyWithEmptyArray() {
+		final Object[] array = new Object[0];
+		final boolean expected = false;
+		final boolean result = It.isNotEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsNotEmptyWithNotEmptyArray() {
+		final Object[] array = new Object[1];
+		array[0] = "";
+
+		final boolean expected = true;
+		final boolean result = It.isNotEmpty(array);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
 	public void testHasTextWithNullString() {
 		final String string = null;
 		final boolean expected = false;

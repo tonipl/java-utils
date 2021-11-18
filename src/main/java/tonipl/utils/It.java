@@ -3,6 +3,7 @@ package tonipl.utils;
 import java.util.Collection;
 import java.util.Map;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -76,6 +77,26 @@ public final class It {
 	 */
 	public static boolean isNotEmpty(final Map<?, ?> map) {
 		return !isEmpty(map);
+	}
+
+	/**
+	 * Return true if the array is null or empty. Otherwise, return false.
+	 * 
+	 * @param array the array to check
+	 * @return whether the given array is empty
+	 */
+	public static boolean isEmpty(final Object[] array) {
+		return ArrayUtils.isEmpty(array);
+	}
+
+	/**
+	 * Return true if the array is not null or not empty. Otherwise, return false.
+	 * 
+	 * @param map the array to check
+	 * @return whether the given array is not empty
+	 */
+	public static boolean isNotEmpty(final Object[] array) {
+		return !isEmpty(array);
 	}
 
 	/**
