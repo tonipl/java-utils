@@ -189,4 +189,29 @@ public class Preconditions {
 			throw new CustomException(errorMessage, params);
 		}
 	}
+
+	/**
+	 * Checks an array is not empty. If it is then throws a custom exception.
+	 *
+	 * @param array        the array
+	 * @param errorMessage the error message
+	 */
+	public static void checkArrayIsNotEmtpy(final Object[] array, final String errorMessage) {
+		if (It.isEmpty(array)) {
+			throw new CustomException(errorMessage);
+		}
+	}
+
+	/**
+	 * Checks an array is not empty. If it is then throws a custom exception.
+	 *
+	 * @param array        the array
+	 * @param errorMessage the error message
+	 * @param params       the params
+	 */
+	public static void checkArrayIsNotEmtpy(final Object[] array, final String errorMessage, final String... params) {
+		if (It.isEmpty(array)) {
+			throw new CustomException(errorMessage, params);
+		}
+	}
 }

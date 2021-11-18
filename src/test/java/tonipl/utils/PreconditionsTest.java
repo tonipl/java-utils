@@ -231,4 +231,44 @@ public class PreconditionsTest {
 
 		Preconditions.checkMapIsNotEmpty(map, ERROR_MESSAGE, PARAM);
 	}
+
+	@Test(expected = CustomException.class)
+	public void testCheckArrayIsNotEmptyWithNull() {
+		final Object[] array = null;
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE);
+	}
+
+	@Test(expected = CustomException.class)
+	public void testCheckArrayIsNotEmptyWithEmpty() {
+		final Object[] array = new Object[0];
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE);
+	}
+
+	@Test
+	public void testCheckArrayIsNotEmptyWithValue() {
+		final Object[] array = new Object[1];
+		array[0] = 1L;
+
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE);
+	}
+
+	@Test(expected = CustomException.class)
+	public void testCheckArrayIsNotEmptyWithNullWithParams() {
+		final Object[] array = null;
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE, PARAM);
+	}
+
+	@Test(expected = CustomException.class)
+	public void testCheckArrayIsNotEmptyWithEmptyWithParams() {
+		final Object[] array = new Object[0];
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE, PARAM);
+	}
+
+	@Test
+	public void testCheckArrayIsNotEmptyWithValueWithParams() {
+		final Object[] array = new Object[1];
+		array[0] = 1L;
+
+		Preconditions.checkArrayIsNotEmtpy(array, ERROR_MESSAGE, PARAM);
+	}
 }
