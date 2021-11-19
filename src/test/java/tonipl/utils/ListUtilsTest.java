@@ -13,60 +13,26 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import tonipl.factories.CommonFactory;
+import tonipl.factories.ListFactory;
 import tonipl.model.Common;
 
 public class ListUtilsTest {
     private List<Common> commons;
 
-    private Common common1;
-    private Common common2;
-    private Common common3;
 
     @Before
     public void init() {
-        initCommon1();
-        initCommon2();
-        initCommon3();
-
-        commons = new ArrayList<>();
-        commons.add(common3);
-        commons.add(common1);
-        commons.add(common2);
+		commons = ListFactory.getCommonList();
     }
 
-    private void initCommon1() {
-        Long id1 = 1L;
-        String creationAuthor1 = "Creation author 1";
-
-        common1 = new Common();
-        common1.setId(id1);
-        common1.setCreationAuthor(creationAuthor1);
-    }
-
-    private void initCommon2() {
-        Long id2 = 2L;
-        String creationAuthor2 = "Creation author 2";
-
-        common2 = new Common();
-        common2.setId(id2);
-        common2.setCreationAuthor(creationAuthor2);
-    }
-
-    private void initCommon3() {
-        Long id3 = 3L;
-        String creationAuthor3 = "Creation author 3";
-
-        common3 = new Common();
-        common3.setId(id3);
-        common3.setCreationAuthor(creationAuthor3);
-    }
 
     @Test
     public void testSortById() {
         List<Common> expected = new ArrayList<>();
-        expected.add(common1);
-        expected.add(common2);
-        expected.add(common3);
+		expected.add(CommonFactory.getCommonById(1L));
+		expected.add(CommonFactory.getCommonById(2L));
+		expected.add(CommonFactory.getCommonById(3L));
 
         ListUtils.sortById(commons);
 
@@ -82,9 +48,9 @@ public class ListUtilsTest {
     @Test
     public void testSortByCreationAuthor() {
         List<Common> expected = new ArrayList<>();
-        expected.add(common1);
-        expected.add(common2);
-        expected.add(common3);
+		expected.add(CommonFactory.getCommonById(1L));
+		expected.add(CommonFactory.getCommonById(2L));
+		expected.add(CommonFactory.getCommonById(3L));
 
         ListUtils.sortByCreationAuthor(commons);
 
@@ -105,14 +71,20 @@ public class ListUtilsTest {
         Instant yesterday = now.minus(1, ChronoUnit.DAYS);
         Instant tomorrow = now.plus(1, ChronoUnit.DAYS);
 
-        common3.setCreationDate(Date.from(now));
-        common1.setCreationDate(Date.from(tomorrow));
-        common2.setCreationDate(Date.from(yesterday));
+		Common common3 = commons.get(2);
+		common3.setCreationDate(Date.from(now));
 
-        List<Common> expected = new ArrayList<>();
-        expected.add(common2);
-        expected.add(common3);
-        expected.add(common1);
+		Common common1 = commons.get(0);
+		common1.setCreationDate(Date.from(tomorrow));
+
+		Common common2 = commons.get(1);
+		common2.setCreationDate(Date.from(yesterday));
+
+
+		List<Common> expected = new ArrayList<>();
+		expected.add(common2);
+		expected.add(common3);
+		expected.add(common1);
 
         ListUtils.sortByCreationDate(commons);
 
@@ -128,11 +100,11 @@ public class ListUtilsTest {
     @Test
     public void testRemoveIfRepeatedIds() {
         Long id = 1L;
-        common2.setId(id);
-        common3.setId(id);
+		commons.get(1).setId(id);
+		commons.get(2).setId(id);
 
         List<Common> expected = new ArrayList<>();
-        expected.add(common3);
+		expected.add(CommonFactory.getCommonById(id));
 
         ListUtils.removeIfRepeatedIds(commons);
 
@@ -150,7 +122,7 @@ public class ListUtilsTest {
         Long idToFind = 1L;
         Common expected = ListUtils.findById(idToFind, commons);
 
-        assertThat(common1, is(expected));
+		assertThat(CommonFactory.getCommonById(idToFind), is(expected));
     }
 
     @Test
