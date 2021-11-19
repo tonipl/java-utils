@@ -2,15 +2,18 @@ package tonipl.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import tonipl.utils.Constants;
+import tonipl.utils.It;
 
 public class Common implements Serializable {
     private static final long serialVersionUID = -8532427860320200108L;
+
 
     @NotEmpty(message = "Id may not be empty")
     private Long id;
@@ -27,7 +30,9 @@ public class Common implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_PATTERN)
     private Date modificationDate;
 
-    public Long getId() {
+
+
+	public Long getId() {
         return id;
     }
 
@@ -66,4 +71,28 @@ public class Common implements Serializable {
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
     }
+
+
+
+    @Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (It.isNull(o) || getClass() != o.getClass()) {
+			return false;
+		}
+
+		Common that = (Common) o;
+		return ((It.isNull(id) && It.isNull(that.getId())) || (It.isNotNull(id) && id.equals(that.getId()))) &&
+				((It.isNull(creationAuthor) && It.isNull(that.getCreationAuthor())) || (It.isNotNull(creationAuthor) && creationAuthor.equals(that.getCreationAuthor()))) &&
+				((It.isNull(creationDate) && It.isNull(that.getCreationDate())) || (It.isNotNull(creationDate) && creationDate.equals(that.getCreationDate()))) &&
+				((It.isNull(modificationAuthor) && It.isNull(that.getModificationAuthor())) || (It.isNotNull(modificationAuthor) && modificationAuthor.equals(that.getModificationAuthor()))) &&
+				((It.isNull(modificationDate) && It.isNull(that.getModificationDate())) || (It.isNotNull(modificationDate) && modificationDate.equals(that.getModificationDate())));
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, creationAuthor, creationDate, modificationAuthor, modificationDate);
+	}
 }
