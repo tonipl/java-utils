@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import tonipl.exceptions.CustomException;
 import tonipl.factories.CommonFactory;
 import tonipl.factories.ListFactory;
 import tonipl.model.Common;
@@ -40,7 +41,7 @@ public class ListUtilsTest {
         assertThat(commons, is(expected));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testSortByIdWithNullList() {
         ListUtils.sortById(null);
     }
@@ -58,7 +59,7 @@ public class ListUtilsTest {
         assertThat(commons, is(expected));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testSortByCreationAuthorWithEmptyList() {
         List<Common> tmpCommons = new ArrayList<>();
 
@@ -92,7 +93,7 @@ public class ListUtilsTest {
         assertThat(commons, is(expected));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testSortByCreationDateWithNullList() {
         ListUtils.sortByCreationDate(null);
     }
@@ -112,7 +113,7 @@ public class ListUtilsTest {
         assertThat(commons, is(expected));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testRemoveIfRepeatedIdsWithNullList() {
         ListUtils.removeIfRepeatedIds(null);
     }
@@ -133,12 +134,12 @@ public class ListUtilsTest {
         assertThat(expected, is(nullValue()));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testFindByIdWithNullId() {
         ListUtils.findById(null, commons);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+	@Test(expected = CustomException.class)
     public void testFindByIdWithNullList() {
         ListUtils.findById(1L, null);
     }
