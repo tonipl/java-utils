@@ -29,4 +29,15 @@ public class FileUtilsTest {
 		String filename = "Foo";
 		FileUtils.transformFileToObject(filename, Common.class);
 	}
+
+	@Test(expected = CustomException.class)
+	public void testTransformFileToObjectWhenNullFile() {
+		FileUtils.transformFileToObject(null, Common.class);
+	}
+
+	@Test(expected = CustomException.class)
+	public void testTransformFileToObjectWhenNullTargetObject() {
+		String filename = "Foo";
+		FileUtils.transformFileToObject(filename, null);
+	}
 }
