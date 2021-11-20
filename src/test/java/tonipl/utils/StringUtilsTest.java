@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class StringUtilsTest {
 
@@ -43,24 +45,17 @@ public class StringUtilsTest {
 		assertThat(result, is(expected));
 	}
 
-	@Test
-	public void testHasNumbersWithEmpty() {
+	@ParameterizedTest
+	@ValueSource(strings = { EMPTY, FOO })
+	void testHasNumbersWithoutNumbers(String arg) {
 		final boolean expected = false;
-		final boolean result = StringUtils.hasNumbers(EMPTY);
+		final boolean result = StringUtils.hasNumbers(arg);
 
 		assertThat(result, is(expected));
 	}
 
 	@Test
-	public void testHasNumbersWithoutNumber() {
-		final boolean expected = false;
-		final boolean result = StringUtils.hasNumbers(FOO);
-
-		assertThat(result, is(expected));
-	}
-
-	@Test
-	public void testHasNumbersWithNumber() {
+	public void testHasNumbersWithNumbers() {
 		final boolean expected = true;
 		final boolean result = StringUtils.hasNumbers(FOO + "1");
 
@@ -75,34 +70,20 @@ public class StringUtilsTest {
 		assertThat(result, is(expected));
 	}
 
-	@Test
-	public void testHasAccentsWithoutAccents() {
+	@ParameterizedTest
+	@ValueSource(strings = { EMPTY, FOO })
+	void testHasAccentsWithoutAccents(String arg) {
 		final boolean expected = false;
-		final boolean result = StringUtils.hasAccents(FOO);
+		final boolean result = StringUtils.hasAccents(arg);
 
 		assertThat(result, is(expected));
 	}
 
-	@Test
-	public void testHasAccentsWithEmpty() {
-		final boolean expected = false;
-		final boolean result = StringUtils.hasAccents(EMPTY);
-
-		assertThat(result, is(expected));
-	}
-
-	@Test
-	public void testHasAccentsWithLowercaseAccents() {
+	@ParameterizedTest
+	@ValueSource(strings = { "FOó", "FOÓ" })
+	void testHasAccentsWithAccents(String arg) {
 		final boolean expected = true;
-		final boolean result = StringUtils.hasAccents("FOó");
-
-		assertThat(result, is(expected));
-	}
-
-	@Test
-	public void testHasAccentsWithUppercaseAccents() {
-		final boolean expected = true;
-		final boolean result = StringUtils.hasAccents("FOÓ");
+		final boolean result = StringUtils.hasAccents(arg);
 
 		assertThat(result, is(expected));
 	}
@@ -115,45 +96,46 @@ public class StringUtilsTest {
         assertThat(result, is(expected));
     }
 
-    @Test
-    public void testHasSpecialCharactersWithEmpty() {
+	@ParameterizedTest
+	@ValueSource(strings = { EMPTY, FOO })
+	void testHasSpecialCharactersWithoutSpecialCharacters(String arg) {
     	final boolean expected = false;
-        final boolean result = StringUtils.hasSpecialCharacters(EMPTY);
+		final boolean result = StringUtils.hasSpecialCharacters(arg);
         
         assertThat(result, is(expected));
     }
 
-    @Test
-    public void testHasSpecialCharactersWithoutSpecialCharacters() {
-    	final boolean expected = false;
-    	final boolean result = StringUtils.hasSpecialCharacters(FOO);
-        
-        assertThat(result, is(expected));
-    }
-
-    @Test
-    public void testHasSpecialCharactersWithSpecialCharacters() {
+	@ParameterizedTest
+	@ValueSource(strings = { "FO¡O", "FO*O", "FO?O", "FO´O", "FO:O", "FO.O", "FO;O" })
+	void testHasSpecialCharactersWithSpecialCharacters(String arg) {
     	final boolean expected = true;
 
-		boolean result = StringUtils.hasSpecialCharacters("FO¡O");
-        assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO*O");
-		assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO?O");
-		assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO´O");
-        assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO:O");
-        assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO.O");
-        assertThat(result, is(expected));
-
-		result = StringUtils.hasSpecialCharacters("FO;O");
+		boolean result = StringUtils.hasSpecialCharacters(arg);
         assertThat(result, is(expected));
     }
+
+	@Test
+	public void testIsValidEmailWithNullEmail() {
+		boolean expected = false;
+		boolean result = StringUtils.isValidEmail(null);
+
+		assertThat(result, is(expected));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = { EMPTY, FOO, "foo@" })
+	void testIsValidEmailWithWrongEmail(String arg) {
+		boolean expected = false;
+		boolean result = StringUtils.isValidEmail(arg);
+
+		assertThat(result, is(expected));
+	}
+
+	@Test
+	public void testIsValidEmailWithCorrectEmail() {
+		boolean expected = true;
+		boolean result = StringUtils.isValidEmail("foo@company.com");
+
+		assertThat(result, is(expected));
+	}
 }

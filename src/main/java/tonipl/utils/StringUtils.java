@@ -6,6 +6,8 @@ package tonipl.utils;
  */
 public class StringUtils {
 
+	private static final String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
 	private StringUtils() {
 	}
 
@@ -71,5 +73,19 @@ public class StringUtils {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Checks if an email is valid.
+	 *
+	 * @param email the email
+	 * @return true if valid, otherwise false
+	 */
+	public static boolean isValidEmail(final String email) {
+		boolean isValid = false;
+		if (It.hasText(email)) {
+			isValid = email.matches(EMAIL_REGEX);
+		}
+		return isValid;
 	}
 }
