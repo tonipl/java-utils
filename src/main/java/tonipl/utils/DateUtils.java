@@ -32,12 +32,12 @@ public class DateUtils {
 	}
 
 	/**
-	 * Formats the date.
+	 * Transforms the date to String.
 	 *
 	 * @param date the date
-	 * @return the formatted date
+	 * @return the String
 	 */
-	public static String getFormattedDate(final Date date) {
+	public static String transformDateToString(final Date date) {
 		String formattedDate = null;
 		try {
 			if (It.isNotNull(date)) {
@@ -50,12 +50,12 @@ public class DateUtils {
 	}
 
 	/**
-	 * Formats the date without time.
+	 * Formats the date to String without time.
 	 *
 	 * @param date the date
-	 * @return the formatted date without time
+	 * @return the String
 	 */
-	public static String getFormattedDateWithoutTime(final Date date) {
+	public static String transformDateToStringWithoutTime(final Date date) {
 		String formattedDate = null;
 		try {
 			if (It.isNotNull(date)) {
