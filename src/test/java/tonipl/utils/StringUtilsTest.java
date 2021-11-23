@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class StringUtilsTest {
 
 	private static final String FOO = "Foo";
-	private static final String EMPTY = "";
+
 
 	@Test
 	public void testGetNullOrValueWithNull() {
@@ -24,7 +24,7 @@ public class StringUtilsTest {
 	@Test
 	public void testGetNullOrValueWithEmpty() {
 		final String expected = null;
-		final String result = StringUtils.getNullOrValue(EMPTY);
+		final String result = StringUtils.getNullOrValue(org.apache.commons.lang3.StringUtils.EMPTY);
 
 		assertThat(result, is(expected));
 	}
@@ -46,7 +46,7 @@ public class StringUtilsTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { EMPTY, FOO })
+	@ValueSource(strings = { org.apache.commons.lang3.StringUtils.EMPTY, FOO })
 	void testHasNumbersWithoutNumbers(String arg) {
 		final boolean expected = false;
 		final boolean result = StringUtils.hasNumbers(arg);
@@ -71,7 +71,7 @@ public class StringUtilsTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { EMPTY, FOO })
+	@ValueSource(strings = { org.apache.commons.lang3.StringUtils.EMPTY, FOO })
 	void testHasAccentsWithoutAccents(String arg) {
 		final boolean expected = false;
 		final boolean result = StringUtils.hasAccents(arg);
@@ -97,7 +97,7 @@ public class StringUtilsTest {
     }
 
 	@ParameterizedTest
-	@ValueSource(strings = { EMPTY, FOO })
+	@ValueSource(strings = { org.apache.commons.lang3.StringUtils.EMPTY, FOO })
 	void testHasSpecialCharactersWithoutSpecialCharacters(String arg) {
     	final boolean expected = false;
 		final boolean result = StringUtils.hasSpecialCharacters(arg);
@@ -123,7 +123,7 @@ public class StringUtilsTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { EMPTY, FOO, "foo@" })
+	@ValueSource(strings = { org.apache.commons.lang3.StringUtils.EMPTY, FOO, "foo@" })
 	void testIsValidEmailWithWrongEmail(String arg) {
 		boolean expected = false;
 		boolean result = StringUtils.isValidEmail(arg);

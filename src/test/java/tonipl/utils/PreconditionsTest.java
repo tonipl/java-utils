@@ -10,15 +10,16 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import tonipl.exceptions.CustomException;
 
 public class PreconditionsTest {
-	private static final String EMPTY_TEXT = "";
 	private static final String NON_EMPTY_TEXT = "Test";
 	private static final String ERROR_MESSAGE = "Error message";
 	private static final String PARAM = "Param";
+
 
 	@Test(expected = CustomException.class)
 	public void testCheckIsNotNullWithNull() {
@@ -28,7 +29,7 @@ public class PreconditionsTest {
 
 	@Test
 	public void testCheckIsNotNullWithNotNull() {
-		Preconditions.checkIsNotNull(EMPTY_TEXT, ERROR_MESSAGE);
+		Preconditions.checkIsNotNull(StringUtils.EMPTY, ERROR_MESSAGE);
 	}
 
 	@Test(expected = CustomException.class)
@@ -39,7 +40,7 @@ public class PreconditionsTest {
 
 	@Test
 	public void testCheckIsNotNullWithNotNullAndParams() {
-		Preconditions.checkIsNotNull(EMPTY_TEXT, ERROR_MESSAGE, PARAM);
+		Preconditions.checkIsNotNull(StringUtils.EMPTY, ERROR_MESSAGE, PARAM);
 	}
 
 	@Test(expected = CustomException.class)
@@ -49,7 +50,7 @@ public class PreconditionsTest {
 
 	@Test(expected = CustomException.class)
 	public void testCheckIfNotPresentWithPresent() {
-		final Optional<String> optional = Optional.of(EMPTY_TEXT);
+		final Optional<String> optional = Optional.of(StringUtils.EMPTY);
 		Preconditions.checkIfNotPresent(optional, ERROR_MESSAGE);
 	}
 
@@ -68,7 +69,7 @@ public class PreconditionsTest {
 
 	@Test(expected = CustomException.class)
 	public void testCheckIfNotPresentWithPresentAndParams() {
-		final Optional<String> optional = Optional.of(EMPTY_TEXT);
+		final Optional<String> optional = Optional.of(StringUtils.EMPTY);
 		Preconditions.checkIfNotPresent(optional, ERROR_MESSAGE, PARAM);
 	}
 
@@ -95,10 +96,10 @@ public class PreconditionsTest {
 
 	@Test
 	public void testCheckIfPresentWithPresent() {
-		final Optional<String> optional = Optional.of(EMPTY_TEXT);
+		final Optional<String> optional = Optional.of(StringUtils.EMPTY);
 		final String result = Preconditions.checkIfPresent(optional, ERROR_MESSAGE);
 
-		assertThat(result, is(EMPTY_TEXT));
+		assertThat(result, is(StringUtils.EMPTY));
 	}
 
 	@Test(expected = CustomException.class)
@@ -116,10 +117,10 @@ public class PreconditionsTest {
 
 	@Test
 	public void testCheckIfPresentWithPresentAndParams() {
-		final Optional<String> optional = Optional.of(EMPTY_TEXT);
+		final Optional<String> optional = Optional.of(StringUtils.EMPTY);
 		final String result = Preconditions.checkIfPresent(optional, ERROR_MESSAGE, PARAM);
 
-		assertThat(result, is(EMPTY_TEXT));
+		assertThat(result, is(StringUtils.EMPTY));
 	}
 
 	@Test(expected = CustomException.class)
@@ -129,7 +130,7 @@ public class PreconditionsTest {
 
 	@Test(expected = CustomException.class)
 	public void testCheckIsNotEmptyStringWithEmpty() {
-		Preconditions.checkStringIsNotEmpty(EMPTY_TEXT, ERROR_MESSAGE);
+		Preconditions.checkStringIsNotEmpty(StringUtils.EMPTY, ERROR_MESSAGE);
 	}
 
 	@Test
@@ -144,7 +145,7 @@ public class PreconditionsTest {
 
 	@Test(expected = CustomException.class)
 	public void testCheckIsNotEmptyStringWithEmptyWithParams() {
-		Preconditions.checkStringIsNotEmpty(EMPTY_TEXT, ERROR_MESSAGE, PARAM);
+		Preconditions.checkStringIsNotEmpty(StringUtils.EMPTY, ERROR_MESSAGE, PARAM);
 	}
 
 	@Test

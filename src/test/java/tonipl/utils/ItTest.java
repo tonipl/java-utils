@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -26,7 +27,7 @@ public class ItTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "", NOT_EMPTY_TEXT })
+	@ValueSource(strings = { StringUtils.EMPTY, NOT_EMPTY_TEXT })
 	void testIsNullWithNotNullObject(String arg) {
 		final boolean expected = false;
 		final boolean result = It.isNull(arg);
@@ -44,7 +45,7 @@ public class ItTest {
 	}
 
 	@ParameterizedTest
-	@ValueSource(strings = { "", NOT_EMPTY_TEXT })
+	@ValueSource(strings = { StringUtils.EMPTY, NOT_EMPTY_TEXT })
 	void testIsNotNullWithNotNullObject(String arg) {
 		final boolean expected = true;
 		final boolean result = It.isNotNull(arg);
@@ -216,7 +217,7 @@ public class ItTest {
 	@Test
 	public void testIsNotEmptyWithNotEmptyArray() {
 		final Object[] array = new Object[1];
-		array[0] = "";
+		array[0] = StringUtils.EMPTY;
 
 		final boolean expected = true;
 		final boolean result = It.isNotEmpty(array);
@@ -235,7 +236,7 @@ public class ItTest {
 
 	@Test
 	public void testHasTextWithEmptyString() {
-		final String string = "";
+		final String string = StringUtils.EMPTY;
 		final boolean expected = false;
 		final boolean result = It.hasText(string);
 
@@ -262,7 +263,7 @@ public class ItTest {
 
 	@Test
 	public void testHasNotTextWithEmptyString() {
-		final String string = "";
+		final String string = StringUtils.EMPTY;
 		final boolean expected = true;
 		final boolean result = It.hasNotText(string);
 
